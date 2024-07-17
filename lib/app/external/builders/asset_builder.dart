@@ -3,7 +3,7 @@ import 'package:tractian_challenge/app/data/models/asset_model.dart';
 import 'package:tractian_challenge/app/data/models/component_model.dart';
 import 'package:tractian_challenge/app/data/models/item_model.dart';
 
-/// Default implementation of [AssetBuilder]
+/// Default implementation of [ItemBuilder]
 /// Handle the rules for building assets depending on rules specified
 /// in the challenge.
 class AssetBuilder extends ItemBuilder {
