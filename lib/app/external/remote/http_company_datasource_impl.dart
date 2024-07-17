@@ -15,7 +15,7 @@ class HttpCompanyDatasourceImpl extends RemoteCompanyDatasource {
     );
     final result = jsonDecode(data.body);
 
-    if (result.statusCode == 200 && result is List) {
+    if (result is List) {
       return result.map((e) => CompanyModel.fromMap(e)).toList();
     } else {
       throw Exception(Strings.companiesDatasourceError);

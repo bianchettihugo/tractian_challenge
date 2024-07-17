@@ -9,15 +9,15 @@ class CompanyController {
   CompanyController({required FetchCompaniesUsecase fetchCompaniesUsecase})
       : _fetchCompanies = fetchCompaniesUsecase;
 
-  final _companiesState = ReactiveState<Failure, List<CompanyEntity>>();
+  final companiesState = ReactiveState<Failure, List<CompanyEntity>>();
 
   Future<void> fetchCompanies() async {
-    _companiesState.changeToLoadingState();
+    companiesState.changeToLoadingState();
 
     final result = await _fetchCompanies();
     result.when(
-      success: (data) => _companiesState.changeToSuccessState(data),
-      failure: (error) => _companiesState.changeToErrorState(error),
+      success: (data) => companiesState.changeToSuccessState(data),
+      failure: (error) => companiesState.changeToErrorState(error),
     );
   }
 }
