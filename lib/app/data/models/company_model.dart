@@ -1,20 +1,7 @@
 import 'package:tractian_challenge/app/domain/entities/company_entity.dart';
 
-class CompanyModel {
-  final String id;
-  final String name;
-
-  CompanyModel({
-    required this.id,
-    required this.name,
-  });
-
-  CompanyEntity toEntity() {
-    return CompanyEntity(
-      id: id,
-      name: name,
-    );
-  }
+class CompanyModel extends CompanyEntity {
+  CompanyModel({required super.id, required super.name});
 
   factory CompanyModel.fromMap(Map<String, dynamic> map) {
     return CompanyModel(
