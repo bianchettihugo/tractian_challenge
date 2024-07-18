@@ -35,12 +35,12 @@ class MyApp extends StatelessWidget {
         }
 
         if (settings.name == '/company') {
-          final args = settings.arguments;
+          final companyId = settings.arguments;
           return MaterialPageRoute(
-            builder: (context) => args is! String
+            builder: (context) => companyId is! String
                 ? const SizedBox()
                 : ItemsPage(
-                    companyId: args,
+                    companyId: companyId,
                     controller: Dependency.get<ItemsController>(),
                   ),
           );

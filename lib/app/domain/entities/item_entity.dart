@@ -13,4 +13,12 @@ class ItemEntity {
     this.parentId,
     this.children,
   });
+
+  bool containsName(String name) {
+    if (children == null) {
+      return this.name.toLowerCase().contains(name.toLowerCase());
+    } else {
+      return children!.any((element) => element.containsName(name));
+    }
+  }
 }
