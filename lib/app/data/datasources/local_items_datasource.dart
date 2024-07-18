@@ -6,4 +6,8 @@ abstract class LocalItemsDatasource {
   void addItem(ItemEntity item);
 
   void clearItems();
+
+  String? get cachedCompanyId;
+
+  void setCachedCompanyId(String companyId);
 }

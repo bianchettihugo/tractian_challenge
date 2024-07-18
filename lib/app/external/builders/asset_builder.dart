@@ -9,7 +9,7 @@ import 'package:tractian_challenge/app/data/models/item_model.dart';
 class AssetBuilder extends ItemBuilder {
   @override
   ItemModel build(Map<String, dynamic> map) {
-    if (map.containsKey('sensorType')) {
+    if (map['sensorType'] != null) {
       return ComponentModel.fromMap(map);
     }
 

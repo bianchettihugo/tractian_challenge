@@ -11,16 +11,20 @@ import 'package:tractian_challenge/core/values/strings.dart';
 class HttpItemsDatasourceImpl extends RemoteItemsDatasource {
   /// With an abstract builder, we can change the way items are
   /// build specifying a concrete builder implementation
-  final ItemBuilder _itemBuilder;
+  ItemBuilder _itemBuilder;
 
   HttpItemsDatasourceImpl({required ItemBuilder itemBuilder})
       : _itemBuilder = itemBuilder;
 
   @override
-  Stream<ItemModel> fetchItems({required String endpoint}) async* {
+  Stream<ItemModel> fetchItems({
+    required String endpoint,
+    required String companyId,
+  }) async* {
     final data = await http.get(
-      Uri.parse('${Links.baseUrl}/$endpoint'),
+      Uri.parse('${Links.baseUrl}/companies/$companyId/$endpoint'),
     );
+
     final result = jsonDecode(data.body);
 
     if (result is List) {
@@ -30,5 +34,10 @@ class HttpItemsDatasourceImpl extends RemoteItemsDatasource {
     } else {
       throw Exception(Strings.companiesDatasourceError);
     }
+  }
+
+  @override
+  void setItemBuilder(ItemBuilder itemBuilder) {
+    _itemBuilder = itemBuilder;
   }
 }
