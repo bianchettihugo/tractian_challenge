@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tractian_challenge/app/presentation/controllers/item_controller.dart';
 import 'package:tractian_challenge/app/presentation/widgets/reactive_state_widget.dart';
 import 'package:tractian_challenge/app/presentation/widgets/retry_widget.dart';
+import 'package:tractian_challenge/app/presentation/widgets/tree_view/tree_view.dart';
 import 'package:tractian_challenge/core/utils/extensions.dart';
 
 class ItemsPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       widget.controller.fetchItems(widget.companyId);
     });
   }
@@ -44,7 +45,8 @@ class _ItemsPageState extends State<ItemsPage> {
           onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.chevron_left,
-            color: context.scheme.secondary,
+            color: context.scheme.onSecondary,
+            size: 32,
           ),
         ),
       ),
@@ -58,7 +60,7 @@ class _ItemsPageState extends State<ItemsPage> {
           },
         ),
         onSuccess: (data) {
-          return const SizedBox();
+          return TreeView(items: data);
         },
       ),
     );

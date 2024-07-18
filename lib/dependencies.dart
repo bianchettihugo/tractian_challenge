@@ -14,6 +14,7 @@ import 'package:tractian_challenge/app/external/remote/http_company_datasource_i
 import 'package:tractian_challenge/app/external/remote/http_items_datasource_impl.dart';
 import 'package:tractian_challenge/app/presentation/controllers/company_controller.dart';
 import 'package:tractian_challenge/app/presentation/controllers/item_controller.dart';
+import 'package:tractian_challenge/app/presentation/factories/item_factory.dart';
 import 'package:tractian_challenge/core/utils/dependency.dart';
 
 class Dependencies {
@@ -70,5 +71,7 @@ class Dependencies {
             Dependency.get<FetchItemsByCompanyIdUsecase>(),
       ),
     );
+
+    Dependency.register<ItemFactory>(ItemFactoryImpl());
   }
 }

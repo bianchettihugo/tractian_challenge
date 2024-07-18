@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:tractian_challenge/app/data/builders/item_builder.dart';
 import 'package:tractian_challenge/app/data/datasources/remote_items_datasource.dart';
 import 'package:tractian_challenge/app/data/models/item_model.dart';
@@ -25,7 +26,7 @@ class HttpItemsDatasourceImpl extends RemoteItemsDatasource {
       Uri.parse('${Links.baseUrl}/companies/$companyId/$endpoint'),
     );
 
-    final result = jsonDecode(data.body);
+    final result = await compute(jsonDecode, data.body);
 
     if (result is List) {
       for (var element in result) {
