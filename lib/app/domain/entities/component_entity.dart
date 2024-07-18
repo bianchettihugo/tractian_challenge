@@ -17,4 +17,9 @@ class ComponentEntity extends ItemEntity {
     required super.name,
     super.parentId,
   }) : super(children: null);
+
+  @override
+  containsProperty(String property) {
+    return sensorType == property || status == property;
+  }
 }

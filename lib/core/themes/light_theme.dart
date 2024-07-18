@@ -16,7 +16,8 @@ class LightTheme {
             onError: Color(0xffFFFFFF),
             surface: Color(0xffFFFFFF),
             onSurface: Color(0xff17192D),
-            outline: Color(0xffF0F0F0),
+            surfaceContainer: Color(0xffEAEFF3),
+            outline: Color(0xff77818C),
             tertiary: Color(0xff52C41A)),
         textTheme: const TextTheme(
           headlineMedium: TextStyle(

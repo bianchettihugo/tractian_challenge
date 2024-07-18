@@ -28,7 +28,9 @@ class ItemRepositoryImpl extends ItemRepository {
   Future<Result<List<ItemEntity>>> fetchItems(String companyId) async {
     try {
       if (_localItemsDatasource.cachedCompanyId == companyId) {
-        return Result.success(_localItemsDatasource.getItems());
+        final items = _localItemsDatasource.getItems()
+          ..forEach((e) => e.isExpanded = false);
+        return Result.success(items);
       }
 
       _localItemsDatasource.clearItems();
@@ -55,6 +57,40 @@ class ItemRepositoryImpl extends ItemRepository {
 
       _localItemsDatasource.setCachedCompanyId(companyId);
       return Result.success(_localItemsDatasource.getItems());
+    } catch (e) {
+      return Result.failure(
+        const Failure(
+          message: Strings.companiesDatasourceError,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Result<List<ItemEntity>>> filterItemsByName(
+      {required String query}) async {
+    try {
+      return Result.success(_localItemsDatasource
+          .getItems()
+          .where((e) => e.containsName(query))
+          .toList());
+    } catch (e) {
+      return Result.failure(
+        const Failure(
+          message: Strings.companiesDatasourceError,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Result<List<ItemEntity>>> filterItemsByProperty(
+      {required String property}) async {
+    try {
+      return Result.success(_localItemsDatasource
+          .getItems()
+          .where((e) => e.containsProperty(property))
+          .toList());
     } catch (e) {
       return Result.failure(
         const Failure(

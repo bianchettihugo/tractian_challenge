@@ -34,6 +34,9 @@ class _TreeViewState extends State<TreeView> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return TreeItem(
+                  key: ValueKey(
+                    '${widget.items[index].id}-${widget.items[index].isExpanded}-',
+                  ),
                   item: widget.items[index],
                   itemFactory: ItemFactoryProvider.of(context).itemFactory,
                 );

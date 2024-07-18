@@ -69,6 +69,7 @@ class _TreeItemState extends State<TreeItem> {
               children: widget.item.children!
                   .map((e) => TreeItem(
                         item: e,
+                        key: ValueKey('${e.id}-${e.isExpanded}'),
                         treeLevel: widget.treeLevel + 1,
                         itemFactory: widget.itemFactory,
                       ))
