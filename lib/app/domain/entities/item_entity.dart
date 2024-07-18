@@ -6,19 +6,33 @@ class ItemEntity {
   final String name;
   final String? parentId;
   final List<ItemEntity>? children;
+  bool isExpanded;
 
   ItemEntity({
     required this.id,
     required this.name,
     this.parentId,
     this.children,
+    this.isExpanded = false,
   });
 
   bool containsName(String name) {
     if (children == null) {
-      return this.name.toLowerCase().contains(name.toLowerCase());
+      final result = this.name.toLowerCase().contains(name.toLowerCase());
+      isExpanded = result;
+      return result;
     } else {
-      return children!.any((element) => element.containsName(name));
+      final result = children!.any((element) => element.containsName(name)) ||
+          this.name.toLowerCase().contains(name.toLowerCase());
+      isExpanded = result;
+      return result;
     }
+  }
+
+  bool containsProperty(String property) {
+    final result =
+        children?.any((element) => element.containsProperty(property)) ?? false;
+    isExpanded = result;
+    return result;
   }
 }

@@ -7,6 +7,8 @@ import 'package:tractian_challenge/app/domain/repositories/company_repository.da
 import 'package:tractian_challenge/app/domain/repositories/item_repository.dart';
 import 'package:tractian_challenge/app/domain/usecases/fetch_companies_usecase.dart';
 import 'package:tractian_challenge/app/domain/usecases/fetch_items_by_company_id_usecase.dart';
+import 'package:tractian_challenge/app/domain/usecases/filter_items_by_name_usecase.dart';
+import 'package:tractian_challenge/app/domain/usecases/filter_items_by_property_usecase.dart';
 import 'package:tractian_challenge/app/external/builders/asset_builder.dart';
 import 'package:tractian_challenge/app/external/builders/location_builder.dart';
 import 'package:tractian_challenge/app/external/local/local_items_datasource_impl.dart';
@@ -14,6 +16,7 @@ import 'package:tractian_challenge/app/external/remote/http_company_datasource_i
 import 'package:tractian_challenge/app/external/remote/http_items_datasource_impl.dart';
 import 'package:tractian_challenge/app/presentation/controllers/company_controller.dart';
 import 'package:tractian_challenge/app/presentation/controllers/item_controller.dart';
+import 'package:tractian_challenge/app/presentation/factories/item_factory.dart';
 import 'package:tractian_challenge/core/utils/dependency.dart';
 
 class Dependencies {
@@ -64,11 +67,28 @@ class Dependencies {
       ),
     );
 
+    Dependency.register<FilterItemsByNameUsecase>(
+      FilterItemsByNameUsecaseImpl(
+        itemRepository: Dependency.get<ItemRepository>(),
+      ),
+    );
+
+    Dependency.register<FilterItemsByPropertyUsecase>(
+      FilterItemsByPropertyUsecaseImpl(
+        itemRepository: Dependency.get<ItemRepository>(),
+      ),
+    );
+
     Dependency.register<ItemsController>(
       ItemsController(
         fetchItemsByCompanyIdUsecase:
             Dependency.get<FetchItemsByCompanyIdUsecase>(),
+        filterItemsByNameUsecase: Dependency.get<FilterItemsByNameUsecase>(),
+        filterItemsByPropertyUsecase:
+            Dependency.get<FilterItemsByPropertyUsecase>(),
       ),
     );
+
+    Dependency.register<ItemFactory>(ItemFactoryImpl());
   }
 }

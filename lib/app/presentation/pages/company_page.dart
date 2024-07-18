@@ -38,7 +38,13 @@ class CompanyPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => CompanyButton(
               label: data[index].name,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/company',
+                  arguments: data[index].id,
+                );
+              },
             ),
             separatorBuilder: (context, index) => const SizedBox(
               height: 20,
