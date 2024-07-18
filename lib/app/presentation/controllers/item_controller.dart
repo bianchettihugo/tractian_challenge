@@ -3,10 +3,10 @@ import 'package:tractian_challenge/app/domain/usecases/fetch_items_by_company_id
 import 'package:tractian_challenge/core/utils/failure.dart';
 import 'package:tractian_challenge/core/utils/state.dart';
 
-class ItemController {
+class ItemsController {
   final FetchItemsByCompanyIdUsecase _fetchItemsByCompanyId;
 
-  ItemController(
+  ItemsController(
       {required FetchItemsByCompanyIdUsecase fetchItemsByCompanyIdUsecase})
       : _fetchItemsByCompanyId = fetchItemsByCompanyIdUsecase;
 
