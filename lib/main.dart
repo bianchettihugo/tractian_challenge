@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tractian_challenge/app/presentation/controllers/company_controller.dart';
+import 'package:tractian_challenge/app/presentation/controllers/item_controller.dart';
 import 'package:tractian_challenge/app/presentation/pages/company_page.dart';
+import 'package:tractian_challenge/app/presentation/pages/items_page.dart';
 import 'package:tractian_challenge/core/themes/light_theme.dart';
 import 'package:tractian_challenge/core/utils/dependency.dart';
 import 'package:tractian_challenge/dependencies.dart';
@@ -22,9 +24,29 @@ class MyApp extends StatelessWidget {
       title: 'Tractian Challenge',
       theme: LightTheme.theme,
       debugShowCheckedModeBanner: false,
-      home: CompanyPage(
-        controller: Dependency.get<CompanyController>()..fetchCompanies(),
-      ),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        if (settings.name == '/') {
+          return MaterialPageRoute(
+            builder: (context) => CompanyPage(
+              controller: Dependency.get<CompanyController>()..fetchCompanies(),
+            ),
+          );
+        }
+
+        if (settings.name == '/company') {
+          final companyId = settings.arguments;
+          return MaterialPageRoute(
+            builder: (context) => companyId is! String
+                ? const SizedBox()
+                : ItemsPage(
+                    companyId: companyId,
+                    controller: Dependency.get<ItemsController>(),
+                  ),
+          );
+        }
+        return null;
+      },
     );
   }
 }
